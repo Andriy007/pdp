@@ -1,0 +1,7 @@
+@import "assets/sass/mixins";
+.modal-container {
+  @include position(relative);
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  @include position(absolute);
+}
