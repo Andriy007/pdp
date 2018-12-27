@@ -1,13 +1,15 @@
-import React from 'react'
-import {Form, Button, Col, Grid} from "react-bootstrap"
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import { Form, FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
 import "./styles.scss"
 
 
-class LoginPage extends React.Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
 
     // reset login status
+    // this.props.dispatch(userActions.logout());
 
     this.state = {
       username: '',
@@ -34,6 +36,20 @@ class LoginPage extends React.Component {
     //   dispatch(userActions.login(username, password));
     // }
   }
+  validatePass() {
+    const passwordLength = this.state.password.length;
+    if (passwordLength >= 6) return 'success';
+    else if (passwordLength >= 3) return 'warning';
+    else if (passwordLength >= 0) return 'error';
+    return null;
+  }
+  validateUserName() {
+    const userNameLength = this.state.username.length;
+    if (userNameLength >= 2) return 'success';
+    else if (userNameLength >= 1) return 'warning';
+    else if (userNameLength >= 0) return 'error';
+    return null;
+  }
 
   render() {
     // const { loggingIn } = this.props;
@@ -41,27 +57,40 @@ class LoginPage extends React.Component {
     return (
       <Col md={2} mdOffset={5} className="login-container">
           <h2>Login</h2>
-            <Form name="form" onSubmit={this.handleSubmit}>
-              <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-                <label htmlFor="username">Username</label>
-                <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-                {submitted && !username &&
-                <div className="help-block">Username is required</div>
-                }
-              </div>
-              <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                <label htmlFor="password">Password</label>
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                {submitted && !password &&
-                <div className="help-block">Password is required</div>
-                }
-              </div>
+            <form name="form" onSubmit={this.handleSubmit}>
+              <FormGroup
+                validationState={this.validateUserName()}
+              >
+                <ControlLabel>Username</ControlLabel>
+                <FormControl
+                  name="username"
+                  type="text"
+                  value={username}
+                  placeholder="Enter text"
+                  onChange={this.handleChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Can't be empty</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                validationState={this.validatePass()}
+              >
+                <ControlLabel>Password</ControlLabel>
+                <FormControl
+                  name="password"
+                  type="password"
+                  value={password}
+                  placeholder="Enter text"
+                  onChange={this.handleChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Can't be empty</HelpBlock>
+              </FormGroup>
               <div className="form-group">
                 <Button bsStyle="primary">Login</Button>
-
-                {/*<Link to="/register" className="btn btn-link">Register</Link>*/}
+                <Link to="/register" className="btn btn-link">Register</Link>
               </div>
-            </Form>
+            </form>
         </Col>
     );
   }
