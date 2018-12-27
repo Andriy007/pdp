@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import { Form, FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
+import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
 import "./styles.scss"
 
 
@@ -14,7 +14,9 @@ class LoginPage extends Component {
     this.state = {
       username: '',
       password: '',
-      submitted: false
+      formValid: false,
+      validatePass: false,
+      validateUserName: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,19 +43,25 @@ class LoginPage extends Component {
     if (passwordLength >= 6) return 'success';
     else if (passwordLength >= 3) return 'warning';
     else if (passwordLength >= 0) return 'error';
-    return null;
+    return null
   }
   validateUserName() {
     const userNameLength = this.state.username.length;
     if (userNameLength >= 2) return 'success';
     else if (userNameLength >= 1) return 'warning';
     else if (userNameLength >= 0) return 'error';
-    return null;
+    return null
+  }
+  validateForm = () => {
+    if (this.props.validationState === 'success') {
+      this.setState({formValid: true});
+      console.log(this.formValid)
+    }
   }
 
   render() {
     // const { loggingIn } = this.props;
-    const { username, password, submitted } = this.state;
+    const { username, password } = this.state;
     return (
       <Col md={2} mdOffset={5} className="login-container">
           <h2>Login</h2>
@@ -86,10 +94,12 @@ class LoginPage extends Component {
                 <FormControl.Feedback />
                 <HelpBlock>Can't be empty</HelpBlock>
               </FormGroup>
-              <div className="form-group">
-                <Button bsStyle="primary">Login</Button>
-                <Link to="/register" className="btn btn-link">Register</Link>
-              </div>
+              <FormGroup>
+                <Col sm={10} style={{ display: "flex"}}>
+                  <Button type="submit" disabled={!this.state.formValid}>Log in</Button>
+                  <Link to="/register" className="btn btn-link">Register</Link>
+                </Col>
+              </FormGroup>
             </form>
         </Col>
     );
