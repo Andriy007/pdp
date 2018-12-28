@@ -5,6 +5,9 @@ import {Provider} from 'react-redux'
 import {store, persistor, history} from './store'
 import App from './App'
 import { PersistGate } from 'redux-persist/integration/react'
+import { configureFakeBackend } from './api/fake-backend';
+configureFakeBackend();
+
 
 render(
   <Provider store={store}>

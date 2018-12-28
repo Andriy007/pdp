@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
 import "./styles.scss"
@@ -105,8 +106,8 @@ class LoginPage extends Component {
     );
   }
 }
-export default LoginPage;
 
+export default LoginPage;
 // function mapStateToProps(state) {
 //   const { loggingIn } = state.authentication;
 //   return {
