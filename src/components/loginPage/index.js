@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
 import "./styles.scss"
 
@@ -107,13 +108,16 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
-// function mapStateToProps(state) {
-//   const { loggingIn } = state.authentication;
-//   return {
-//     loggingIn
-//   };
-// }
-//
-// const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-// export { connectedLoginPage as LoginPage };
+
+function mapStateToProps({ state }) {
+  return {
+    state
+  };
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  // login
+}, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

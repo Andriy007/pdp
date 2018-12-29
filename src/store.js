@@ -17,6 +17,7 @@ const middleware = [
   routerMiddleware(history)
 ];
 
+
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
 
@@ -32,9 +33,11 @@ const composedEnhancers = compose(
 
 export const store = createStore(
   connectRouter(history)(persistReducer),
-  composedEnhancers
+  composedEnhancers,
 );
 export const persistor = persistStore(store);
+
+window.store = store;
 
 /** then run the saga **/
 sagaMiddleware.run(mySaga);

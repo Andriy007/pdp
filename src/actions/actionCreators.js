@@ -7,8 +7,6 @@ export const initSession = () => ({type: types.INIT_SESSION_REQUEST});
 export const fetchRequest = () => ({type: types.FETCH_REQUEST});
 export const fetchReceive = () => ({type: types.FETCH_RECEIVE});
 
-/******** MAIN IMAGES ********/
-export const getMainImages = () => ({type: types.GET_MAIN_IMAGES});
 
 /******** AUTH ********/
 export const authorize = (credentials) => ({type: types.LOGIN_REQUEST, credentials});
@@ -29,10 +27,17 @@ export const hideModal = () => ({
   type: types.HIDE_MODAL
 });
 
-export const addArticle = (type, props) => ({
-  type: types.ADD_ARTICLE,
-  payload: {
-    type,
-    props
+
+export const addArticle = (article) => {
+  return {
+    type: types.ADD_ARTICLE,
+    article
   }
-});
+};
+
+export const deleteArticle = (article) => {
+  return {
+    type: types.DELETE_ARTICLE,
+    data: article.id,
+  }
+};

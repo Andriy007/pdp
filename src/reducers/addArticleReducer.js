@@ -1,14 +1,16 @@
-import { ADD_ARTICLE } from "../actions/actionTypes";
+import * as types from "../actions/actionTypes";
 
-const initialState  = {
-  articles: []
-};
+const initialState = [];
 
-export default function addArticleReducer(state = initialState, action) {
-  if (action.type === ADD_ARTICLE) {
-    return Object.assign({}, state, {
-      articles: state.articles.concat(action.payload)
-    });
+export default (state = initialState, action) => {
+  switch(action.type) {
+    case types.ADD_ARTICLE:
+      return [...state, action.article];
+
+    case types.DELETE_ARTICLE:
+      return state.filter(({ id }) => id !== action.data);
+
+    default:
+      return state;
   }
-  return state;
 }

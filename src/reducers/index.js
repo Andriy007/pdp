@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 import session from './sessionReducer';
 import modal from './modalReducer';
 import fetching from './fetchProcessReducer';
-import addArticle from './addArticleReducer';
+import article from './addArticleReducer';
 
 /** persist configuration for sync with localStorage **/
 const rootPersistConfig = {
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   session,
   modal,
   fetching,
-  addArticle
+  article,
 
 });
 
