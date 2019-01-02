@@ -8,7 +8,8 @@ export default (state = initialState, action) => {
       return [...state, action.article];
 
     case types.DELETE_ARTICLE:
-      return state.filter(({ id }) => id !== action.data);
+      console.log("delete")
+      return state.filter(data => data.id !== action.id);
 
     default:
       return state;

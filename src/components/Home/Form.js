@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import { Col, Button } from "react-bootstrap";
-import { addArticle, deleteArticle } from "../../actions/actionCreators";
+import { addArticle } from "../../actions/actionCreators";
 
 class ConnectedForm extends Component {
   constructor() {
@@ -24,9 +24,6 @@ class ConnectedForm extends Component {
     this.props.addArticle({ title, id });
     this.setState({ title: "" });
   }
-  handleDelete = (e) => {
-    // this.props.deleteArticle({ id: id })
-  };
   render() {
     const { title } = this.state;
     return (
@@ -51,7 +48,6 @@ class ConnectedForm extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addArticle: article => dispatch(addArticle(article)),
-    deleteArticle: article => dispatch(deleteArticle(article))
   };
 };
 

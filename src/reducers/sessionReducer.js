@@ -32,19 +32,8 @@ export default function sessionReducer(state = initialState, action) {
       return {
         ...state,
         error: Symbol('true') // unique 'true'
-      };
-    case types.PASSWORD_RESET_SUCCESS:
-      return {
-        ...state,
-        error: false,
-        message: ''
-      };
-    case types.PASSWORD_SEND_ERROR:
-      return {
-        ...state,
-        error: Symbol('true'), // unique 'true'
-        message: action.response.error
-      };
+
+      }
     case types.SIGNUP_SUCCESS:
        return {
          ...state,

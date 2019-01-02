@@ -12,7 +12,6 @@ export const fetchReceive = () => ({type: types.FETCH_RECEIVE});
 export const authorize = (credentials) => ({type: types.LOGIN_REQUEST, credentials});
 export const logout = (token) => ({type: types.LOGOUT, token});
 export const signup = (userDetails) => ({ type: types.SIGNUP, userDetails });
-export const passwordReset = (credentials) => ({type: types.PASSWORD_RESET_REQUEST, credentials});
 
 /******** MODAL ********/
 export const showModal = (type, props) => ({
@@ -35,9 +34,10 @@ export const addArticle = (article) => {
   }
 };
 
-export const deleteArticle = (article) => {
+export const deleteArticle = (id) => {
   return {
     type: types.DELETE_ARTICLE,
-    data: article.id,
+    id: id,
   }
 };
+

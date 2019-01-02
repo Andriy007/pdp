@@ -44,21 +44,15 @@ class LoginPage extends Component {
     const passwordLength = this.state.password.length;
     if (passwordLength >= 6) return 'success';
     else if (passwordLength >= 3) return 'warning';
-    else if (passwordLength >= 0) return 'error';
+    else if (passwordLength > 0) return 'error';
     return null
   }
   validateUserName() {
     const userNameLength = this.state.username.length;
-    if (userNameLength >= 2) return 'success';
-    else if (userNameLength >= 1) return 'warning';
-    else if (userNameLength >= 0) return 'error';
+    if (userNameLength >= 3) return 'success';
+    else if (userNameLength >= 2) return 'warning';
+    else if (userNameLength > 0) return 'error';
     return null
-  }
-  validateForm = () => {
-    if (this.props.validationState === 'success') {
-      this.setState({formValid: true});
-      console.log(this.formValid)
-    }
   }
 
   render() {
@@ -98,7 +92,7 @@ class LoginPage extends Component {
               </FormGroup>
               <FormGroup>
                 <Col sm={10} style={{ display: "flex"}}>
-                  <Button type="submit" disabled={!this.state.formValid}>Log in</Button>
+                  <Button type="submit" disabled={!this.state.username || !this.state.password}>Log in</Button>
                   <Link to="/register" className="btn btn-link">Register</Link>
                 </Col>
               </FormGroup>
@@ -117,7 +111,7 @@ function mapStateToProps({ state }) {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   // login
-}, dispatch)
+}, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
