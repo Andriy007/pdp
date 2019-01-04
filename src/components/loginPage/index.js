@@ -33,12 +33,12 @@ class LoginPage extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    // this.setState({ submitted: true });
-    // const { username, password } = this.state;
-    // const { dispatch } = this.props;
-    // if (username && password) {
-    //   dispatch(userActions.login(username, password));
-    // }
+    this.setState({ submitted: true });
+    const { username, password } = this.state;
+    const { dispatch } = this.props;
+    if (username && password) {
+      dispatch(this.props.login(username, password));
+    }
   }
   validatePass() {
     const passwordLength = this.state.password.length;
@@ -56,7 +56,7 @@ class LoginPage extends Component {
   }
 
   render() {
-    // const { loggingIn } = this.props;
+    const { loggingIn } = this.props;
     const { username, password } = this.state;
     return (
       <Col md={2} mdOffset={5} className="login-container">
@@ -102,16 +102,18 @@ class LoginPage extends Component {
   }
 }
 
-
-function mapStateToProps({ state }) {
+function mapStateToProps(state) {
+  const { loggingIn } = state.authentication;
   return {
-    state
+    loggingIn
   };
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  // login
-}, dispatch);
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

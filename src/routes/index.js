@@ -9,10 +9,9 @@ const routes = (
   <div>
     <main>
       <Switch>
-        <Route exact path='/' component={LoginPage}/>
+        <Route exact path='/login' component={LoginPage}/>
         <Route path='/register' component={RegisterPage}/>
         <Route path='/home' component={HomePage}/>
-        <Route path='/' component={LoginPage}/>
       </Switch>
     </main>
   </div>

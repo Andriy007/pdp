@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import { Col, Button } from "react-bootstrap";
-import { addArticle } from "../../actions/actionCreators";
+import { addGroup } from "../../actions/actionCreators";
 
 class ConnectedForm extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class ConnectedForm extends Component {
     event.preventDefault();
     const { title } = this.state;
     const id = uuidv1();
-    this.props.addArticle({ title, id });
+    this.props.addGroup({ title, id });
     this.setState({ title: "" });
   }
   render() {
@@ -29,7 +29,7 @@ class ConnectedForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <Col className="form-group">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Name</label>
           <input
             type="text"
             className="form-control"
@@ -47,7 +47,7 @@ class ConnectedForm extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    addArticle: article => dispatch(addArticle(article)),
+    addGroup: group => dispatch(addGroup(group)),
   };
 };
 

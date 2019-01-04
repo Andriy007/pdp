@@ -1,17 +1,9 @@
 import * as types from './actionTypes';
 
-/******** INIT SESSION ********/
-export const initSession = () => ({type: types.INIT_SESSION_REQUEST});
-
 /******** FETCHING CONTROL ********/
 export const fetchRequest = () => ({type: types.FETCH_REQUEST});
 export const fetchReceive = () => ({type: types.FETCH_RECEIVE});
 
-
-/******** AUTH ********/
-export const authorize = (credentials) => ({type: types.LOGIN_REQUEST, credentials});
-export const logout = (token) => ({type: types.LOGOUT, token});
-export const signup = (userDetails) => ({ type: types.SIGNUP, userDetails });
 
 /******** MODAL ********/
 export const showModal = (type, props) => ({
@@ -27,16 +19,28 @@ export const hideModal = () => ({
 });
 
 
-export const addArticle = (article) => {
+
+/******REGISTRATION******/
+// export const addUserInfo = (users) => {
+//   return {
+//     type: types.ADD_USER_INFO,
+//     users
+//   }
+// };
+
+export const registration = (users) => ({type: types.REGISTER_REQUEST, users});
+
+/*********GROUP CONTROL********/
+export const addGroup = (group) => {
   return {
-    type: types.ADD_ARTICLE,
-    article
+    type: types.ADD_GROUP,
+    group
   }
 };
 
-export const deleteArticle = (id) => {
+export const deleteGroup = (id) => {
   return {
-    type: types.DELETE_ARTICLE,
+    type: types.DELETE_GROUP,
     id: id,
   }
 };

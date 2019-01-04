@@ -4,11 +4,10 @@ const initialState = [];
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case types.ADD_ARTICLE:
-      return [...state, action.article];
+    case types.ADD_GROUP:
+      return [...state, action.group];
 
-    case types.DELETE_ARTICLE:
-      console.log("delete")
+    case types.DELETE_GROUP:
       return state.filter(data => data.id !== action.id);
 
     default:

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { FormGroup, ControlLabel, FormControl,HelpBlock, Button, Col } from "react-bootstrap"
 import { connect } from 'react-redux';
 
-// import { userActions } from '../_actions';
+import { registration, addUserInfo } from "../../actions/actionCreators";
+
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -39,14 +40,14 @@ class RegisterPage extends Component {
   }
 
   handleSubmit(event) {
+    console.log("HHHH")
     event.preventDefault();
+    const { user } = this.state;
 
-    // this.setState({ submitted: true });
-    // const { user } = this.state;
-    // const { dispatch } = this.props;
-    // if (user.firstName && user.lastName && user.username && user.password) {
-    //   dispatch(userActions.register(user));
-    // }
+    const { dispatch } = this.props;
+    if (user.firstName && user.lastName && user.username && user.password) {
+      dispatch(registration(user));
+    }
   }
   validateField(name, value) {
     let passwordValid = this.state.passwordValid;
@@ -88,8 +89,7 @@ class RegisterPage extends Component {
         <p style={{color: "red"}}>Fields required</p>
       )
     }
-    // const { registering  } = this.props;
-    const { user, submitted } = this.state;
+    const { user } = this.state;
     return (
       <Col md={3} mdOffset={5}>
         <h2>Register</h2>
@@ -134,7 +134,7 @@ class RegisterPage extends Component {
             />
             <FormControl.Feedback />
             <HelpBlock>{passErorr}</HelpBlock>
-            <Button disabled={!this.state.formValid} className="btn btn-primary">Register</Button>
+            <Button disabled={!this.state.formValid} onClick={this.handleSubmit} className="btn btn-primary">Register</Button>
             <Link to="/login" className="btn btn-link">Cancel</Link>
           </FormGroup>
         </form>
@@ -142,14 +142,7 @@ class RegisterPage extends Component {
     );
   }
 }
-export default RegisterPage;
 
-// function mapStateToProps(state) {
-//   const { registering } = state.registration;
-//   return {
-//     registering
-//   };
-// }
-//
-// const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
-// export { connectedRegisterPage as RegisterPage };
+const mapStateToProps = state => state.registration;
+
+export default connect(mapStateToProps)(RegisterPage);
