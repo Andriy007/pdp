@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormGroup, ControlLabel, FormControl,HelpBlock, Button, Col } from "react-bootstrap"
 import { connect } from 'react-redux';
 
-import { registration, addUserInfo } from "../../actions/actionCreators";
+import { registration } from "../../actions/actionCreators";
 
 
 class RegisterPage extends Component {
@@ -40,7 +40,6 @@ class RegisterPage extends Component {
   }
 
   handleSubmit(event) {
-    console.log("HHHH")
     event.preventDefault();
     const { user } = this.state;
 
@@ -135,7 +134,7 @@ class RegisterPage extends Component {
             <FormControl.Feedback />
             <HelpBlock>{passErorr}</HelpBlock>
             <Button disabled={!this.state.formValid} onClick={this.handleSubmit} className="btn btn-primary">Register</Button>
-            <Link to="/login" className="btn btn-link">Cancel</Link>
+            <Link to="/authenticate" className="btn btn-link">Cancel</Link>
           </FormGroup>
         </form>
       </Col>

@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
-import modal from './modalReducer';
 import fetching from './fetchProcessReducer';
 import registration from "./registration.reducer"
 import authentication from "./authentication.reducer"
@@ -16,7 +15,6 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
 
-  modal,
   fetching,
   authentication,
   registration,

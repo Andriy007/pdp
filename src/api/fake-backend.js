@@ -1,7 +1,9 @@
 
 // array in local storage for registered users
 function getCurrentUsers() {
-  return window.store.getState().registration.users;
+  const usersArray = localStorage.getItem('users') || '[]';
+
+  return JSON.parse(usersArray);
 }
 
 export function configureFakeBackend() {
@@ -17,7 +19,6 @@ export function configureFakeBackend() {
                 if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
                     // get parameters from post request
                     let params = JSON.parse(opts.body);
-
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
                         return user.username === params.username && user.password === params.password;
@@ -31,7 +32,7 @@ export function configureFakeBackend() {
                             username: user.username,
                             firstName: user.firstName,
                             lastName: user.lastName,
-                            token: 'fake-jwt-token'
+                            token: 'fake-jt-token'
                         };
                         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
                     } else {
@@ -82,7 +83,8 @@ export function configureFakeBackend() {
 
                     // validation
                     let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
-                    if (duplicateUser) {
+
+                    if (duplicateUser && users.length) {
                         reject('Username "' + newUser.username + '" is already taken');
                         return;
                     }
@@ -93,7 +95,7 @@ export function configureFakeBackend() {
                     localStorage.setItem('users', JSON.stringify(users));
 
                     // respond 200 OK
-                    resolve({ ok: true, text: () => Promise.resolve() });
+                    resolve({ ok: true, text: () => Promise.resolve(JSON.stringify({id: newUser.id})) });
 
                     return;
                 }

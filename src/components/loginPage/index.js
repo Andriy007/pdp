@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux';
 import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
 import "./styles.scss"
 
+import { login } from "../../actions/actionCreators";
+
+
 
 class LoginPage extends Component {
   constructor(props) {
@@ -37,7 +40,7 @@ class LoginPage extends Component {
     const { username, password } = this.state;
     const { dispatch } = this.props;
     if (username && password) {
-      dispatch(this.props.login(username, password));
+      dispatch(login(username, password));
     }
   }
   validatePass() {
@@ -109,11 +112,5 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
 
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps)(LoginPage);

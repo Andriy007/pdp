@@ -6,29 +6,26 @@ export const fetchReceive = () => ({type: types.FETCH_RECEIVE});
 
 
 /******** MODAL ********/
-export const showModal = (type, props) => ({
-  type: types.SHOW_MODAL,
-  payload: {
-    type,
-    props
-  }
-});
-
-export const hideModal = () => ({
-  type: types.HIDE_MODAL
-});
-
+// export const showModal = (type, props) => ({
+//   type: types.SHOW_MODAL,
+//   payload: {
+//     type,
+//     props
+//   }
+// });
+//
+// export const hideModal = () => ({
+//   type: types.HIDE_MODAL
+// });
+//
 
 
 /******REGISTRATION******/
-// export const addUserInfo = (users) => {
-//   return {
-//     type: types.ADD_USER_INFO,
-//     users
-//   }
-// };
 
 export const registration = (users) => ({type: types.REGISTER_REQUEST, users});
+
+/******REGISTRATION******/
+export const login = (user, pass) => ({type: types.LOGIN_REQUEST, payload: {username: user, password: pass}});
 
 /*********GROUP CONTROL********/
 export const addGroup = (group) => {
