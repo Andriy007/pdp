@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import { FormGroup, ControlLabel, FormControl,HelpBlock, Button, Col } from "react-bootstrap"
+import { FormGroup, ControlLabel, FormControl,HelpBlock, Button, Col, Grid } from "react-bootstrap"
 import { connect } from 'react-redux';
 
-import { registration } from "../../actions/actionCreators";
+import { clearError, registration } from "../../actions/actionCreators";
+import Modal from "../Modal";
 
 
 class RegisterPage extends Component {
@@ -43,9 +44,8 @@ class RegisterPage extends Component {
     event.preventDefault();
     const { user } = this.state;
 
-    const { dispatch } = this.props;
     if (user.firstName && user.lastName && user.username && user.password) {
-      dispatch(registration(user));
+      this.props.registration(user)
     }
   }
   validateField(name, value) {
@@ -89,59 +89,78 @@ class RegisterPage extends Component {
       )
     }
     const { user } = this.state;
+
     return (
-      <Col md={3} mdOffset={5}>
-        <h2>Register</h2>
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <ControlLabel>First Name</ControlLabel>
-            <FormControl
-              name="firstName"
-              type="text"
-              value={user.firstName}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>{nameError}</HelpBlock>
-            <ControlLabel>Last Name</ControlLabel>
-            <FormControl
-              name="lastName"
-              type="text"
-              value={user.lastName}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>{nameError}</HelpBlock>
-            <ControlLabel>User Name</ControlLabel>
-            <FormControl
-              name="username"
-              type="text"
-              value={user.username}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              name="password"
-              type="password"
-              value={user.password}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>{passErorr}</HelpBlock>
-            <Button disabled={!this.state.formValid} onClick={this.handleSubmit} className="btn btn-primary">Register</Button>
-            <Link to="/authenticate" className="btn btn-link">Cancel</Link>
-          </FormGroup>
-        </form>
-      </Col>
+      <Grid>
+
+        {/*Modal START*/}
+        <Col>{!!this.props.errors.message && <Modal message={this.props.errors.message} hide={this.props.clearError}/>}</Col>
+        {/*Modal END*/}
+
+        <Col md={3} mdOffset={5}>
+          <h2>Register</h2>
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <ControlLabel>First Name</ControlLabel>
+              <FormControl
+                name="firstName"
+                type="text"
+                value={user.firstName}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>{nameError}</HelpBlock>
+              <ControlLabel>Last Name</ControlLabel>
+              <FormControl
+                name="lastName"
+                type="text"
+                value={user.lastName}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>{nameError}</HelpBlock>
+              <ControlLabel>User Name</ControlLabel>
+              <FormControl
+                name="username"
+                type="text"
+                value={user.username}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                name="password"
+                type="password"
+                value={user.password}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              <HelpBlock>{passErorr}</HelpBlock>
+              <Button disabled={!this.state.formValid} onClick={this.handleSubmit} className="btn btn-primary">Register</Button>
+              <Link to="/authenticate" className="btn btn-link">Cancel</Link>
+            </FormGroup>
+          </form>
+        </Col>
+      </Grid>
     );
   }
 }
 
-const mapStateToProps = state => state.registration;
+const mapStateToProps = (state) => {
+  return {
+    registration: state.registration,
+    errors: state.errors
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearError: () => dispatch(clearError()),
+    registration : (user) => dispatch(registration(user))
+  };
+};
 
-export default connect(mapStateToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

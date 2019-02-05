@@ -1,13 +1,8 @@
-import { authHeader } from './auth-header';
 
 export const userService = {
   registerFetch,
   loginFetch,
-  // logout,
-  // getAll,
-  // getById,
-  // update,
-  // delete: _delete
+  logout,
 };
 
 const apiUrl = 'http://localhost:4000';
@@ -34,7 +29,6 @@ function loginFetch(data) {
     .then(user => {
       // login successful if there's a jwt token in the response
       if (user.token) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
       }
 
@@ -42,6 +36,9 @@ function loginFetch(data) {
     });
 }
 
+function logout() {
+  localStorage.removeItem('user');
+}
 
 function handleResponse(response) {
   return response.text().then(text => {

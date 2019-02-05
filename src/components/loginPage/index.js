@@ -1,20 +1,15 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock } from "react-bootstrap"
+import Modal from '../Modal';
+import { FormGroup, Button, Col, ControlLabel, FormControl, HelpBlock, Grid } from "react-bootstrap"
+
+import { login, clearError } from "../../actions/actionCreators";
 import "./styles.scss"
-
-import { login } from "../../actions/actionCreators";
-
-
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
-
-    // reset login status
-    // this.props.dispatch(userActions.logout());
 
     this.state = {
       username: '',
@@ -38,9 +33,8 @@ class LoginPage extends Component {
 
     this.setState({ submitted: true });
     const { username, password } = this.state;
-    const { dispatch } = this.props;
     if (username && password) {
-      dispatch(login(username, password));
+      this.props.login(username, password);
     }
   }
   validatePass() {
@@ -59,9 +53,12 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { loggingIn } = this.props;
     const { username, password } = this.state;
     return (
+      <Grid>
+      {/*Modal START*/}
+    <Col>{!!this.props.errors.message && <Modal message={this.props.errors.message} hide={this.props.clearError}/>}</Col>
+    {/*Modal END*/}
       <Col md={2} mdOffset={5} className="login-container">
           <h2>Login</h2>
             <form name="form" onSubmit={this.handleSubmit}>
@@ -101,16 +98,18 @@ class LoginPage extends Component {
               </FormGroup>
             </form>
         </Col>
+      </Grid>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { loggingIn } = state.authentication;
+const mapStateToProps = (state) => ({errors: state.errors});
+
+const mapDispatchToProps = (dispatch) => {
   return {
-    loggingIn
+    clearError: () => dispatch(clearError()),
+    login: (username, password) => dispatch(login(username, password))
   };
-}
+};
 
-
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

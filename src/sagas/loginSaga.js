@@ -6,18 +6,19 @@ import { userService } from "../api/user.service"
 
 function* login(action){
 
-  const response = yield call(userService.loginFetch, action.payload);
+  try {
 
-  if (response) {
-    yield put({type: types.LOGIN_SUCCESS, response});
-    yield put(push('/home'))
-
+    const response = yield call(userService.loginFetch, action.payload);
+    if (response) {
+      yield put({type: types.LOGIN_SUCCESS, response});
+      yield put(push('/home'))
+    }
+    else {
+      yield put({type: types.LOGIN_FAILURE});
+    }
+  } catch(error) {
+    yield put({type: types.ERROR, error});
   }
-  else {
-    yield put({type: types.LOGIN_FAILURE});
-
-  }
-
 }
 
 function* loginSaga(){

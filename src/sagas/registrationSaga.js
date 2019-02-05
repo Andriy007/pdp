@@ -5,18 +5,20 @@ import { userService } from "../api/user.service"
 
 
 function* register(action){
-  const response = yield call(userService.registerFetch, action.users);
 
-  if (response) {
-    yield put({type: types.REGISTER_SUCCESS, response});
-    yield put(push('/authenticate'))
+  try {
+    const response = yield call(userService.registerFetch, action.users);
 
+    if (response) {
+      yield put({type: types.REGISTER_SUCCESS, response});
+      yield put(push('/authenticate'))
+    }
+    else {
+      yield put({type: types.REGISTER_FAILURE});
+    }
+  } catch(error) {
+    yield put({type: types.ERROR, error})
   }
-  else {
-    yield put({type: types.REGISTER_FAILURE});
-
-  }
-
 }
 
 function* registerSaga(){

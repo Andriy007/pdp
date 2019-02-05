@@ -1,31 +1,20 @@
-import * as types from './actionTypes';
-
-/******** FETCHING CONTROL ********/
-export const fetchRequest = () => ({type: types.FETCH_REQUEST});
-export const fetchReceive = () => ({type: types.FETCH_RECEIVE});
-
-
-/******** MODAL ********/
-// export const showModal = (type, props) => ({
-//   type: types.SHOW_MODAL,
-//   payload: {
-//     type,
-//     props
-//   }
-// });
-//
-// export const hideModal = () => ({
-//   type: types.HIDE_MODAL
-// });
-//
-
+import * as types from "./actionTypes";
+import { userService } from "../api/user.service"
 
 /******REGISTRATION******/
 
 export const registration = (users) => ({type: types.REGISTER_REQUEST, users});
 
-/******REGISTRATION******/
+/******LOGIN******/
 export const login = (user, pass) => ({type: types.LOGIN_REQUEST, payload: {username: user, password: pass}});
+
+/*****LOGOUT*****/
+export const logout = (user) => {
+  userService.logout();
+  return { type: types.LOGOUT, user };
+};
+
+export const clearError = () => ({type: types.CLEAR});
 
 /*********GROUP CONTROL********/
 export const addGroup = (group) => {
